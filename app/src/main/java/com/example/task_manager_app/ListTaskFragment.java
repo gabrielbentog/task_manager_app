@@ -22,9 +22,9 @@ public class ListTaskFragment extends Fragment {
 
 
         // Inflate the layout for this fragment
-        List<String> tarefas = new ArrayList<>(Arrays.asList("Tarefa 1", "Tarefa 2", "Tarefa 3", "Tarefa 4", "Tarefa 5"));
-        ListView listaDeTarefas = view.findViewById(R.id.list_view);
-        listaDeTarefas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, tarefas));
+        List<String> tasks = new ArrayList<>(Arrays.asList("Tarefa 1", "Tarefa 2", "Tarefa 3", "Tarefa 4", "Tarefa 5"));
+        ListView taskList = view.findViewById(R.id.list_view);
+        taskList.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, tasks));
 
         return view;
     }
