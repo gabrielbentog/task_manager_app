@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"> <!-- Aumentei o padding para mais espaço -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome:"
+        android:paddingBottom="8dp"
+        android:textSize="18sp"/> <!-- Aumentei o tamanho do texto -->
+
+    <EditText
+        android:id="@+id/edit_text_task_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Name"
+        android:textSize="16sp"/> <!-- Aumentei o tamanho do texto -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prioridade:"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textSize="18sp"/> <!-- Aumentei o tamanho do texto -->
+
+    <Spinner
+        android:id="@+id/spinner_task_priority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/task_priority_array" />
+
+    <Button
+        android:id="@+id/button_save_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar Tarefa"
+        android:paddingTop="16dp"
+        android:textSize="16sp"/> <!-- Aumentei o tamanho do texto -->
+
+</LinearLayout>
