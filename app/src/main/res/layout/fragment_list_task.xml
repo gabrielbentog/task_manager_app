@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListTaskFragment">
+    tools:context=".ListTaskFragment"
+    android:layout_marginTop="40dp">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/dashboard_tarefas_fab_adicionar_tarefa"
+        android:id="@+id/add_new_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
