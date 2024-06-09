@@ -13,4 +13,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_button">ADD BUTTON</string>
+
+    <string-array name="priority_itens">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
+
+    <string-array name="status_itens">
+        <item>A fazer</item>
+        <item>Em progresso</item>
+        <item>Concluída</item>
+    </string-array>
 </resources>
