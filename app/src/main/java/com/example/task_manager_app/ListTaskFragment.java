@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import java.util.HashMap;
-
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,7 +28,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ListTaskFragment extends Fragment {
 
@@ -46,7 +43,7 @@ public class ListTaskFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CadastrarTarefaActivity.class);
+                Intent intent = new Intent(mContext, CreateTaskActivity.class);
                 startActivity(intent);
             }
         });

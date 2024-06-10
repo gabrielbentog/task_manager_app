@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"> <!-- Aumentei o padding para mais espaço -->
+    android:padding="24dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome:"
         android:paddingBottom="8dp"
-        android:textSize="18sp"/> <!-- Aumentei o tamanho do texto -->
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/edit_text_task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Task Name"
-        android:textSize="16sp"/> <!-- Aumentei o tamanho do texto -->
+        android:textSize="16sp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:text="Prioridade:"
         android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:textSize="18sp"/> <!-- Aumentei o tamanho do texto -->
+        android:textSize="18sp"/>
 
     <Spinner
         android:id="@+id/spinner_task_priority"
@@ -39,6 +39,6 @@
         android:layout_height="wrap_content"
         android:text="Salvar Tarefa"
         android:paddingTop="16dp"
-        android:textSize="16sp"/> <!-- Aumentei o tamanho do texto -->
+        android:textSize="16sp"/>
 
 </LinearLayout>

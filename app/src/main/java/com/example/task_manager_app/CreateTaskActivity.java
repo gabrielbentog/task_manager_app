@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +23,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CadastrarTarefaActivity extends AppCompatActivity {
+public class CreateTaskActivity extends AppCompatActivity {
 
     EditText editTextDate;
     EditText editTextDate2;
@@ -36,7 +34,7 @@ public class CadastrarTarefaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastrar_tarefa);
+        setContentView(R.layout.activity_create_task);
 
         editTextDate = findViewById(R.id.editTextDate);
         editTextDate2 = findViewById(R.id.editTextDate2);
@@ -69,7 +67,7 @@ public class CadastrarTarefaActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CadastrarTarefaActivity.this, MainActivity.class);
+                Intent intent = new Intent(CreateTaskActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -93,6 +91,8 @@ public class CadastrarTarefaActivity extends AppCompatActivity {
                 Calendar dataSelecionada = Calendar.getInstance();
                 dataSelecionada.set(year, month, dayOfMonth);
                 editTextDate.setText(dateFormat.format(dataSelecionada.getTime()));
+
+                verificarDatasValidas();
             }
         }, year, month, dayOfMonth);
         datePickerDialog.show();
@@ -103,19 +103,21 @@ public class CadastrarTarefaActivity extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
             String userId = auth.getCurrentUser().getUid();
+            String startDateString = editTextDate2.getText().toString();
+            String finalDateString = editTextDate.getText().toString();
             Map<String, Object> task = new HashMap<>();
             task.put("name", "Nova Tarefa");
             task.put("priority", prioritySpinner.getSelectedItem().toString());
             task.put("status", statusSpinner.getSelectedItem().toString());
             task.put("user_id", userId);
-            task.put("start_date", editTextDate.getText().toString());
-            task.put("final_date", editTextDate2.getText().toString());
+            task.put("start_date", editTextDate2.getText().toString());
+            task.put("final_date", editTextDate.getText().toString());
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("tasks").add(task)
                     .addOnSuccessListener(documentReference -> {
                         Toast.makeText(getApplicationContext(), "Tarefa criada", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CadastrarTarefaActivity.this, MainActivity.class);
+                        Intent intent = new Intent(CreateTaskActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     })
@@ -126,4 +128,33 @@ public class CadastrarTarefaActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Nenhum usuário autenticado", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void verificarDatasValidas() {
+        String startDateString = editTextDate2.getText().toString();
+        String finalDateString = editTextDate.getText().toString();
+        Button btnCriar = findViewById(R.id.btnCriar);
+
+        if (!startDateString.isEmpty() && !finalDateString.isEmpty()) {
+            try {
+                Calendar startDate = Calendar.getInstance();
+                startDate.setTime(dateFormat.parse(startDateString));
+                Calendar finalDate = Calendar.getInstance();
+                finalDate.setTime(dateFormat.parse(finalDateString));
+
+                if (finalDate.before(startDate)) {
+                    Toast.makeText(getApplicationContext(), "A data final não pode ser anterior à data inicial", Toast.LENGTH_SHORT).show();
+                    btnCriar.setEnabled(false);
+                    editTextDate.setBackgroundResource(R.drawable.edit_text_border_red);
+                    editTextDate2.setBackgroundResource(R.drawable.edit_text_border_red);
+                } else {
+                    btnCriar.setEnabled(true);
+                    editTextDate.setBackgroundResource(android.R.drawable.edit_text);
+                    editTextDate2.setBackgroundResource(android.R.drawable.edit_text);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

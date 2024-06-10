@@ -19,6 +19,7 @@
     <string name="criar_tarefa">Criar Tarefa</string>
     <string name="selecione_uma_data">Selecione uma data</string>
     <string name="criar">Criar</string>
+    <string name="coming_soon">Coming soon</string>
     <string-array name="priority_itens">
         <item>Baixa</item>
         <item>Média</item>
