@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="task_priority_array">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+</resources>
