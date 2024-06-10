@@ -15,6 +15,10 @@
     <string name="add_button">ADD BUTTON</string>
     <string name="excluir">Excluir</string>
     <string name="editar">Editar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="criar_tarefa">Criar Tarefa</string>
+    <string name="selecione_uma_data">Selecione uma data</string>
+    <string name="criar">Criar</string>
     <string-array name="priority_itens">
         <item>Baixa</item>
         <item>Média</item>

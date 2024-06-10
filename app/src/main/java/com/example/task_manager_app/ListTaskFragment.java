@@ -1,6 +1,7 @@
 package com.example.task_manager_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,32 +46,15 @@ public class ListTaskFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-
-                if (auth.getCurrentUser() != null) {
-                    String userId = auth.getCurrentUser().getUid();
-                    Map<String, Object> task = new HashMap<>();
-                    task.put("name", "Mocked Task");
-                    task.put("priority", "medium");
-                    task.put("user_id", userId);
-
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("tasks").add(task)
-                            .addOnCompleteListener(documentReference -> {
-                                Toast.makeText(mContext, "Tarefa criada", Toast.LENGTH_SHORT).show();
-                                loadTasks(); // Recarrega as tarefas
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(mContext, "Falha ao criar tarefa", Toast.LENGTH_SHORT).show();
-                            });
-                } else {
-                    Toast.makeText(mContext, "Nenhum usuário autenticado", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(mContext, CadastrarTarefaActivity.class);
+                startActivity(intent);
             }
         });
-
-        loadTasks();
         return view;
+    }
+    public void onResume() {
+        super.onResume();
+        loadTasks();
     }
 
     private void deleteTask(String documentId) {
@@ -87,6 +71,7 @@ public class ListTaskFragment extends Fragment {
                 });
     }
     private void loadTasks() {
+        ProgressBar progressBar = getView().findViewById(R.id.progress_bar);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference tasksRef = db.collection("tasks");
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -156,7 +141,6 @@ public class ListTaskFragment extends Fragment {
             };
             taskList.setAdapter(adapter);
 
-            ProgressBar progressBar = getView().findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
         });
     }
