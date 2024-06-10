@@ -4,22 +4,33 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/image_view_priority"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/priorityicon" />
+
     <TextView
         android:id="@+id/text_view_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Item Text"
+        android:text="@string/item_text"
         android:textSize="18sp"
-        android:layout_alignParentStart="true"
+        android:layout_toEndOf="@id/image_view_priority"
         android:layout_centerVertical="true"/>
+
 
     <ImageButton
         android:id="@+id/button_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/settings_24dp_fill0_wght400_grad0_opsz24"
+        android:src="@drawable/options_svgrepo_com"
         android:layout_alignParentEnd="true"
+        android:background="tra"
         android:layout_centerVertical="true"
-        android:contentDescription="Menu"/>
+        android:contentDescription="@string/menu"/>
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -106,7 +107,26 @@ public class ListTaskFragment extends Fragment {
                     ImageButton buttonMenu = listItemView.findViewById(R.id.button_menu);
                     String currentDocumentId = queryDocumentSnapshots.getDocuments().get(position).getId(); // obtendo o ID da tarefa
                     buttonMenu.setTag(currentDocumentId); // associando o ID da tarefa como uma tag
-
+                    ImageView imageViewPriority = listItemView.findViewById(R.id.image_view_priority);
+                    String currentPriority = queryDocumentSnapshots.getDocuments().get(position).getString("priority");
+                    if (currentPriority != null) {
+                        switch (currentPriority.toLowerCase()) {
+                            case "high":
+                                imageViewPriority.setImageResource(R.drawable.high_priority);
+                                break;
+                            case "medium":
+                                imageViewPriority.setImageResource(R.drawable.medium_priority);
+                                break;
+                            case "low":
+                                imageViewPriority.setImageResource(R.drawable.low_priority);
+                                break;
+                            default:
+                                imageViewPriority.setVisibility(View.GONE);
+                                break;
+                        }
+                    } else {
+                        imageViewPriority.setVisibility(View.GONE);
+                    }
                     buttonMenu.setOnClickListener(view -> {
                         String taskId = (String) view.getTag(); // recuperando o ID da tarefa do botão clicado
                         PopupMenu popupMenu = new PopupMenu(mContext, buttonMenu);
