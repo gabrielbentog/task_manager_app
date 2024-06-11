@@ -25,6 +25,8 @@
     <string name="priorityicon">PriorityIcon</string>
     <string name="user_image">User Image</string>
     <string name="change_profile">Alterar Perfil</string>
+    <string name="name">Name</string>
+    <string name="task_status">status</string>
     <string-array name="priority_itens">
         <item>Baixa</item>
         <item>Média</item>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -127,6 +129,28 @@ public class ListTaskFragment extends Fragment {
                     } else {
                         imageViewPriority.setVisibility(View.GONE);
                     }
+                    String currentStatus = queryDocumentSnapshots.getDocuments().get(position).getString("status");
+                    TextView textViewStatus = listItemView.findViewById(R.id.text_view_status);
+                    if (currentStatus != null) {
+                        textViewStatus.setText(currentStatus);
+                        switch (currentStatus.toLowerCase()) {
+                            case "a fazer":
+                                textViewStatus.setBackground(ContextCompat.getDrawable(mContext, R.drawable.status_background_grey));
+                                break;
+                            case "em progresso":
+                                textViewStatus.setBackground(ContextCompat.getDrawable(mContext, R.drawable.status_background_blue));
+                                break;
+                            case "concluída":
+                                textViewStatus.setBackground(ContextCompat.getDrawable(mContext, R.drawable.status_background_green));
+                                break;
+                            default:
+                                textViewStatus.setVisibility(View.GONE);
+                                break;
+                        }
+                    } else {
+                        textViewStatus.setVisibility(View.GONE);
+                    }
+
                     buttonMenu.setOnClickListener(view -> {
                         String taskId = (String) view.getTag();
                         PopupMenu popupMenu = new PopupMenu(mContext, buttonMenu);
@@ -134,11 +158,12 @@ public class ListTaskFragment extends Fragment {
                         popupMenu.getMenu().add("Excluir");
                         String currentTaskName = tasks.get(position);
                         String currentTaskPriority = queryDocumentSnapshots.getDocuments().get(position).getString("priority");
+                        String currentTaskStatus = queryDocumentSnapshots.getDocuments().get(position).getString("status");
 
                         popupMenu.setOnMenuItemClickListener(item -> {
                             switch (item.getTitle().toString()) {
                                 case "Editar":
-                                    EditTaskDialogFragment editTaskDialogFragment = EditTaskDialogFragment.newInstance(taskId, currentTaskName, currentTaskPriority);
+                                    EditTaskDialogFragment editTaskDialogFragment = EditTaskDialogFragment.newInstance(taskId, currentTaskName, currentTaskPriority, currentTaskStatus);
                                     editTaskDialogFragment.setTargetFragment(ListTaskFragment.this, 1);
                                     editTaskDialogFragment.show(getActivity().getSupportFragmentManager(), "EditTaskDialogFragment");
                                     return true;

@@ -33,6 +33,13 @@
         android:layout_height="wrap_content"
         android:entries="@array/task_priority_array" />
 
+    <Spinner
+        android:id="@+id/spinner_task_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:entries="@array/task_status_array" />
+
     <Button
         android:id="@+id/button_save_task"
         android:layout_width="match_parent"
@@ -40,5 +47,6 @@
         android:text="Salvar Tarefa"
         android:paddingTop="16dp"
         android:textSize="16sp"/>
+
 
 </LinearLayout>

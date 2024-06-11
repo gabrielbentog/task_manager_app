@@ -4,4 +4,10 @@
         <item>Média</item>
         <item>Alta</item>
     </string-array>
+
+    <string-array name="task_status_array">
+        <item>A fazer</item>
+        <item>Em progresso</item>
+        <item>Concluída</item>
+    </string-array>
 </resources>

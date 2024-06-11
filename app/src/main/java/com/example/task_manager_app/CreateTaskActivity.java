@@ -25,8 +25,7 @@ import java.util.Map;
 
 public class CreateTaskActivity extends AppCompatActivity {
 
-    EditText editTextDate;
-    EditText editTextDate2;
+    EditText editTextDate, editTextDate2, editTextMultiLine;
     Spinner prioritySpinner;
     Spinner statusSpinner;
     SimpleDateFormat dateFormat;
@@ -37,6 +36,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_task);
 
         editTextDate = findViewById(R.id.editTextDate);
+        editTextMultiLine = findViewById(R.id.editTextMultiLine);
         editTextDate2 = findViewById(R.id.editTextDate2);
         dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
@@ -104,7 +104,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             String userId = auth.getCurrentUser().getUid();
             Map<String, Object> task = new HashMap<>();
-            task.put("name", "Nova Tarefa");
+            task.put("name", editTextMultiLine.getText().toString());
             task.put("priority", prioritySpinner.getSelectedItem().toString());
             task.put("status", statusSpinner.getSelectedItem().toString());
             task.put("user_id", userId);

@@ -21,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ChangeProfileActivity extends AppCompatActivity {
 
     private TextInputEditText editTextName;
-    private TextInputEditText editTextEmail;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
 
@@ -31,7 +30,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_profile);
 
         editTextName = findViewById(R.id.editTextName);
-        editTextEmail = findViewById(R.id.editTextEmail);
         Button btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
 
         db = FirebaseFirestore.getInstance();
@@ -39,11 +37,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         editTextName.setText(currentUser.getDisplayName());
-        editTextEmail.setText(currentUser.getEmail());
 
         btnUpdateProfile.setOnClickListener(view -> {
             String newName = editTextName.getText().toString();
-            String newEmail = editTextEmail.getText().toString();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -54,17 +50,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(ChangeProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                            // Update email if changed
-                            if (!newEmail.equals(currentUser.getEmail())) {
-                                currentUser.updateEmail(newEmail)
-                                        .addOnCompleteListener(emailTask -> {
-                                            if (emailTask.isSuccessful()) {
-                                                Toast.makeText(ChangeProfileActivity.this, "Email updated successfully", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(ChangeProfileActivity.this, "Failed to update email", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
                         } else {
                             Toast.makeText(ChangeProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
                         }

@@ -24,15 +24,16 @@ public class EditTaskDialogFragment extends DialogFragment {
     private EditText editTextTaskName;
     private Spinner spinnerTaskPriority;
     private Button buttonSaveTask;
-
+    Spinner spinnerTaskStatus;
     private String documentId;
 
-    public static EditTaskDialogFragment newInstance(String documentId, String taskName, String taskPriority) {
+    public static EditTaskDialogFragment newInstance(String documentId, String taskName, String taskPriority, String taskStatus) {
         EditTaskDialogFragment fragment = new EditTaskDialogFragment();
         Bundle args = new Bundle();
         args.putString("documentId", documentId);
         args.putString("taskName", taskName);
         args.putString("taskPriority", taskPriority);
+        args.putString("taskStatus", taskStatus);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,12 +52,22 @@ public class EditTaskDialogFragment extends DialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTaskPriority.setAdapter(adapter);
 
+        spinnerTaskStatus = view.findViewById(R.id.spinner_task_status);
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.task_status_array, android.R.layout.simple_spinner_item);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTaskStatus.setAdapter(statusAdapter);
+
         if (getArguments() != null) {
             documentId = getArguments().getString("documentId");
             editTextTaskName.setText(getArguments().getString("taskName"));
             String priority = getArguments().getString("taskPriority");
             int spinnerPosition = getPriorityPosition(priority);
             spinnerTaskPriority.setSelection(spinnerPosition);
+            String currentStatus = getArguments().getString("taskStatus");
+            int spinnerPosition2 = getStatusPosition(currentStatus);
+            spinnerTaskStatus.setSelection(spinnerPosition2);
+
         }
 
         buttonSaveTask.setOnClickListener(v -> saveTask());
@@ -100,9 +111,22 @@ public class EditTaskDialogFragment extends DialogFragment {
         }
     }
 
+    private int getStatusPosition(String status) {
+        switch (status) {
+            case "A fazer":
+                return 0;
+            case "Em progresso":
+                return 1;
+            case "Concluída":
+                return 2;
+            default:
+                return 0;
+        }
+    }
     private void saveTask() {
         String taskName = editTextTaskName.getText().toString().trim();
         String taskPriority = getPriorityValue(spinnerTaskPriority.getSelectedItemPosition());
+        String taskStatus = spinnerTaskStatus.getSelectedItem().toString();
 
         if (TextUtils.isEmpty(taskName)) {
             Toast.makeText(getContext(), "Task name cannot be empty", Toast.LENGTH_SHORT).show();
@@ -112,7 +136,7 @@ public class EditTaskDialogFragment extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference taskRef = db.collection("tasks").document(documentId);
 
-        taskRef.update("name", taskName, "priority", taskPriority)
+        taskRef.update("name", taskName, "priority", taskPriority, "status", taskStatus)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Task updated successfully", Toast.LENGTH_SHORT).show();
                     dismiss();
