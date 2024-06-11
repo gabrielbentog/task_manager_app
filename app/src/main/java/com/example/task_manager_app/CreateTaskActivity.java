@@ -73,7 +73,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         });
 
         Button btnCriar = findViewById(R.id.btnCriar);
-        btnCriar.setOnClickListener(v -> criarTarefa());
+        btnCriar.setOnClickListener(v -> createTask());
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
@@ -92,19 +92,17 @@ public class CreateTaskActivity extends AppCompatActivity {
                 dataSelecionada.set(year, month, dayOfMonth);
                 editTextDate.setText(dateFormat.format(dataSelecionada.getTime()));
 
-                verificarDatasValidas();
+                verifyInvalidDates();
             }
         }, year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
-    private void criarTarefa() {
+    private void createTask() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
             String userId = auth.getCurrentUser().getUid();
-            String startDateString = editTextDate2.getText().toString();
-            String finalDateString = editTextDate.getText().toString();
             Map<String, Object> task = new HashMap<>();
             task.put("name", "Nova Tarefa");
             task.put("priority", prioritySpinner.getSelectedItem().toString());
@@ -129,7 +127,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void verificarDatasValidas() {
+    private void verifyInvalidDates() {
         String startDateString = editTextDate2.getText().toString();
         String finalDateString = editTextDate.getText().toString();
         Button btnCriar = findViewById(R.id.btnCriar);

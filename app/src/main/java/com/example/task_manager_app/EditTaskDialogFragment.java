@@ -46,7 +46,6 @@ public class EditTaskDialogFragment extends DialogFragment {
         spinnerTaskPriority = view.findViewById(R.id.spinner_task_priority);
         buttonSaveTask = view.findViewById(R.id.button_save_task);
 
-        // Configura o adaptador do Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.task_priority_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -77,11 +76,11 @@ public class EditTaskDialogFragment extends DialogFragment {
 
     private int getPriorityPosition(String priority) {
         switch (priority) {
-            case "Low":
+            case "Baixa":
                 return 0;
-            case "Medium":
+            case "Média":
                 return 1;
-            case "High":
+            case "Alta":
                 return 2;
             default:
                 return 1;
@@ -91,13 +90,13 @@ public class EditTaskDialogFragment extends DialogFragment {
     private String getPriorityValue(int position) {
         switch (position) {
             case 0:
-                return "Low";
+                return "Baixa";
             case 1:
-                return "Medium";
+                return "Média";
             case 2:
-                return "High";
+                return "Alta";
             default:
-                return "Medium";
+                return "Média";
         }
     }
 

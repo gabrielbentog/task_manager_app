@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/options_svgrepo_com"
         android:layout_alignParentEnd="true"
-        android:background="tra"
         android:layout_centerVertical="true"
         android:contentDescription="@string/menu"/>
 

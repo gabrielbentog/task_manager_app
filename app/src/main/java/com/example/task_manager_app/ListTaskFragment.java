@@ -105,19 +105,19 @@ public class ListTaskFragment extends Fragment {
                     View listItemView = super.getView(position, convertView, parent);
 
                     ImageButton buttonMenu = listItemView.findViewById(R.id.button_menu);
-                    String currentDocumentId = queryDocumentSnapshots.getDocuments().get(position).getId(); // obtendo o ID da tarefa
-                    buttonMenu.setTag(currentDocumentId); // associando o ID da tarefa como uma tag
+                    String currentDocumentId = queryDocumentSnapshots.getDocuments().get(position).getId();
+                    buttonMenu.setTag(currentDocumentId);
                     ImageView imageViewPriority = listItemView.findViewById(R.id.image_view_priority);
                     String currentPriority = queryDocumentSnapshots.getDocuments().get(position).getString("priority");
                     if (currentPriority != null) {
                         switch (currentPriority.toLowerCase()) {
-                            case "high":
+                            case "alta":
                                 imageViewPriority.setImageResource(R.drawable.high_priority);
                                 break;
-                            case "medium":
+                            case "média":
                                 imageViewPriority.setImageResource(R.drawable.medium_priority);
                                 break;
-                            case "low":
+                            case "baixa":
                                 imageViewPriority.setImageResource(R.drawable.low_priority);
                                 break;
                             default:
@@ -128,7 +128,7 @@ public class ListTaskFragment extends Fragment {
                         imageViewPriority.setVisibility(View.GONE);
                     }
                     buttonMenu.setOnClickListener(view -> {
-                        String taskId = (String) view.getTag(); // recuperando o ID da tarefa do botão clicado
+                        String taskId = (String) view.getTag();
                         PopupMenu popupMenu = new PopupMenu(mContext, buttonMenu);
                         popupMenu.getMenu().add("Editar");
                         popupMenu.getMenu().add("Excluir");
@@ -152,7 +152,7 @@ public class ListTaskFragment extends Fragment {
 
                         popupMenu.show();
                     });
-
+                    notifyDataSetChanged();
                     return listItemView;
                 }
             };
